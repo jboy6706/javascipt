@@ -1,61 +1,130 @@
-// Функция pow(x,n), которая возвращает x в степени n (n - целое число).
-export function pow(x, n) {
-    if (n === 0) return 1;
-    if (n < 0) return 1 / pow(x, -n);
-    
-    let result = 1;
-    for (let i = 0; i < n; i++) {
-        result *= x;
+'use strict'
+/**
+ * Программа возвращает дробную часть числа
+ * @param {number} num 
+ * @returns {number} num дробную часть числа
+ */
+export function getDecimal(num) {
+    if (Math.trunc(num) == num) {
+        return 0;
     }
-    return result;
-}
-
-// Функция sumTo(n), которая для данного натурального n вычисляет сумму чисел от 1 до n включительно.
-export function sumTo(n) {
-    return n * (n + 1) / 2;
-}
-
-// Функция-предикат isLeapYear(year), которая проверят год year на високосность.
-export function isLeapYear(year) {
-    return (year % 400 === 0) || (year % 100 !== 0 && year % 4 === 0);
-}
-
-// Функция factorial(n), которая возвращает факториал числа n!, используя рекурсивный вызов n!= n*(n-1)!.
-export function factorial(n) {
-    if (n === 0) return 1n;
-    return BigInt(n) * factorial(n - 1);
-}
-
-// Функция fib(n), которая возвращает n-е число Фибоначчи.
-export function fib(n) {
-    let a = 0n;
-    let b = 1n;
-    if (n === 0) return a;
-    
-    for (let i = 2; i <= n; i++) {
-        const c = a + b;
-        a = b;
-        b = c;
+    else if (num < 0) {
+        return num - (-Math.ceil(-num));
     }
-    return b;
+
+    if (num > 1) {
+        return +(num - Math.trunc(num)).toFixed(10);
+    }
 }
 
-// Функция compare(), которая принимает целочисленное значение x и возвращает анонимную функцию.
-export function compare(x) {
-    return function(y) {
-        if (y > x) return true;
-        if (y < x) return false;
-        return null;
-    };
+/**
+ * Программа возвращает normalizeUrl
+ * @param {url} url 
+ * @returns {url}
+ */
+
+export function normalizeUrl(url) {
+    const normalizeUrl = (url) => {
+        const prefix = 'http://';
+        if (url.startsWith(prefix)) {
+          return 'https://' + url.slice(prefix.length);
+        }
+        return 'https://' + url;
+      };
+    }
+
+/**
+ * Функция возвращает true, если строка str содержит 'viagra' или 'XXX', а иначе false
+ * @param {string} str 
+ * @returns {boolean} возвращает true, если строка str содержит 'viagra' или 'XXX', а иначе false
+ */
+export function checkSpam(str) {
+    let newstr = str.toLowerCase();
+    return newstr.includes('viagra') || newstr.includes('xxx');
 }
 
-//Функция sum(...), которая возвращает сумму всех своих аргументов.
-export function sum(...args) {
-    return args.reduce((total, current) => total + current, 0);
+
+/**
+ * Функция проверяет длину строки str, и если она превосходит maxlength – заменяет конец str на символ многоточие "…"
+ * @param {string} str 
+ * @param {number} maxlength 
+ * @returns {string} отформатированная строка 
+ */
+export function truncate(str, maxlength) {
+    if (str.length < maxlength) {
+        return str;
+    }
+    else {
+        return str.slice(0, maxlength - 1) + '…';
+    }
+}
+/**
+ *  Функция преобразует строку вида 'var-test-text' в 'varTestText'
+ * @param {string} str 
+ * @returns {string}
+ */
+export function ucFirst(str) {
+    if (!str) return str;
+    return str[0].toUpperCase() + str.slice(1);
+  }
+
+/**
+ *  Функция преобразует строку вида 'var-test-text' в 'varTestText'
+ * @param {string} str 
+ * @returns {string} строка вида'varTestText'
+ */
+export function camelize(str) {
+    let str_copy = str.split("-");
+    let strnew = "";
+    for (let i = 0; i <= str_copy.length - 1; i++) {
+        if (i == 0) strnew = str_copy[0];
+        else strnew += ucFirst(str_copy[i]);
+    }
+    return strnew;
 }
 
-// Функция addBlackSpot(), которая принимает на вход объект и возвращает этот объект с добавленным к нему символьным свойством blackSpot=true, которое бёрется из глобального реестра символов.
-export function addBlackSpot(obj) {
-    obj[Symbol.for("blackSpot")] = true;
-    return obj;
+function fib(n) {
+    let a = BigInt(1);
+    let b = BigInt(1);
+    if (n == BigInt(0)) {
+        return BigInt(0);
+    }
+    else {
+        for (let i = BigInt(3); i <= n; i++) {
+           let c = a + b;
+            a = b;
+            b = c;
+        }
+        return b;
+    }}
+/**
+ * Функция  возвращает массив, заполненный числами Фибоначчи до n-го (не включая его)
+ * @param {number} n 
+ * @returns {array} массив, заполненный числами Фибоначчи до n-го (не включая его)
+ */
+export function fibs(n) {
+    let mas = [];
+    for (let i = 0; i < n; i += 1) {
+        mas.push(fib(i));
+    }
+    return mas;
+}
+/**
+ * Функция возвращает массив из тех же элементов, но отсортированный по убыванию
+ * @param {array} arr 
+ * @returns {array}  массив из тех же элементов, но отсортированный по убыванию
+ */
+export function arrReverseSorted(arr) {
+    let arr_copy = arr.slice();
+    return arr_copy.sort(function (a, b) {
+        return b - a;
+    })
+}
+/**
+ * Функция массив уникальных, не повторяющихся значений массива arr
+ * @param {array} arr 
+ * @returns {array} массив уникальных, не повторяющихся значений массива arr
+ */
+export function unique(arr) {
+    return Array.from(new Set(arr));
 }
