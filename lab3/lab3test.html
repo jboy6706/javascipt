@@ -19,8 +19,7 @@
     <script type="module">
         'use strict';
         import {
-            getDecimal, 
-            divmod,
+            getDecimal, divmod,
             ucFirst,
             normalizeUrl,
             checkSpam,
@@ -29,7 +28,7 @@
             fibs,
             arrReverseSorted,
             unique
-        } from './lab2.js';
+        } from './laba3.js';
         describe("getDecimal", function () {
 
             it("getDecimal(1.23) => 0.23", function () {
@@ -44,6 +43,7 @@
                 assert.strictEqual(getDecimal(1), 0);
             });
         });
+
         describe("divmod", function () {
             it("divmod(7, 3) => [2, 1]", function () { 
                 assert.deepEqual(divmod(7, 3), [2, 1]); 
