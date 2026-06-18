@@ -18,6 +18,26 @@ export function getDecimal(num) {
 }
 
 /**
+ * Делит числа с остатком.
+ * @param {number} dividend - Делимое.
+ * @param {number} divisor - Делитель.
+ * @id70533735 (@returns) {Array<number>} Массив [частное, остаток].
+ */
+export function divmod(dividend, divisor) {
+    // Проверка на деление на ноль
+    if (divisor === 0) {
+        return [NaN, NaN];
+    }
+    
+    // Вычисляем частное с округлением вниз (floor) для отрицательных чисел
+    const quotient = Math.floor(dividend / divisor);
+    const remainder = dividend - quotient * divisor;
+    
+    return [quotient, remainder];
+}
+
+
+/**
  * Программа возвращает normalizeUrl
  * @param {url} url 
  * @returns {url}
